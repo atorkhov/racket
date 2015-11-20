@@ -6,6 +6,7 @@ Summary:        Racket
 Group:          Development/Languages
 License:        LGPLv3+
 URL:            http://racket-lang.org
+# Unable to do full build. see https://github.com/racket/racket/issues/1144
 Source0:        http://mirror.racket-lang.org/installers/6.2.1/racket-6.2.1-src-builtpkgs.tgz
 
 BuildRequires:  gcc libffi-devel desktop-file-utils
