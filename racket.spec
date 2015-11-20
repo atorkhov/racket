@@ -1,3 +1,6 @@
+# --disable-strip option in configure doesn't work
+%global debug_package %{nil}
+
 Name:           racket
 Version:        6.2.1
 Release:        1%{?dist}
