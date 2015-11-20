@@ -3,7 +3,7 @@
 
 Name:           racket
 Version:        6.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Racket
 
 Group:          Development/Languages
@@ -76,6 +76,14 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
+%package        doc
+Summary:        Documentation files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    doc
+The %{name}-doc package contains documentation for %{name}.
+
+
 %prep
 %setup -q
 
@@ -125,8 +133,14 @@ fi
 %files devel
 %{_includedir}/%{name}
 
+%files doc
+%doc %{_pkgdocdir}
+
 
 %changelog
+* Fri Nov 20 2015 Alexey Torkhov <atorkhov@gmail.com> 6.2.1-2
+-  Add doc subpackage and disable debuginfo.
+
 * Fri Nov 20 2015 Alexey Torkhov <atorkhov@gmail.com> 6.2.1-1
 -  Initial package.
 
