@@ -1,0 +1,4 @@
+/x86_64
+*.src.rpm
+racket-6.2.1-src-builtpkgs.tgz
+racket-6.2.1-src.tgz
