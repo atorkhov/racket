@@ -4,7 +4,7 @@
 Name:           racket
 Version:        6.2.1
 Release:        2%{?dist}
-Summary:        Racket
+Summary:        Racket is a multi-paradigm programming language formerly known as PLT Scheme
 
 Group:          Development/Languages
 License:        LGPLv3+
