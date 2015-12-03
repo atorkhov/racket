@@ -2,15 +2,15 @@
 %global debug_package %{nil}
 
 Name:           racket
-Version:        6.2.1
-Release:        2%{?dist}
+Version:        6.3
+Release:        1%{?dist}
 Summary:        Racket is a multi-paradigm programming language formerly known as PLT Scheme
 
 Group:          Development/Languages
 License:        LGPLv3+
 URL:            http://racket-lang.org
 # Unable to do full build. see https://github.com/racket/racket/issues/1144
-Source0:        http://mirror.racket-lang.org/installers/6.2.1/racket-6.2.1-src-builtpkgs.tgz
+Source0:        http://mirror.racket-lang.org/installers/%{version}/%{name}-%{version}-src-builtpkgs.tgz
 
 BuildRequires:  gcc libffi-devel desktop-file-utils
 
@@ -98,14 +98,18 @@ make %{?_smp_mflags}
 cd src
 %make_install
 
+mv %{buildroot}%{_datadir}/%{name}/COPYING* %{buildroot}%{_pkgdocdir}
+
+rm -f %{buildroot}%{_libdir}/*.a
+
 # Fix paths. see https://github.com/racket/racket/issues/1143
-sed -i -e 's,%{buildroot},,' %{buildroot}/%{_datadir}/applications/drracket.desktop
-sed -i -e 's,%{buildroot},,' %{buildroot}/%{_datadir}/applications/slideshow.desktop
+sed -i -e 's,%{buildroot},,' %{buildroot}%{_datadir}/applications/drracket.desktop
+sed -i -e 's,%{buildroot},,' %{buildroot}%{_datadir}/applications/slideshow.desktop
 
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/drracket.desktop
-desktop-file-validate %{buildroot}/%{_datadir}/applications/slideshow.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/drracket.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/slideshow.desktop
 
 
 %post
@@ -122,22 +126,28 @@ fi
 
 
 %files
-%doc README src/COPYING*
-%{_sysconfdir}/%{name}
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/config.rktd
 %{_bindir}/*
 %{_libdir}/%{name}
 %{_datadir}/applications/*.desktop
 %{_mandir}/man1/*
 %{_datadir}/%{name}
+%dir %{_pkgdocdir}
+%doc %{_pkgdocdir}/COPYING*
 
 %files devel
 %{_includedir}/%{name}
 
 %files doc
 %doc %{_pkgdocdir}
+%exclude %{_pkgdocdir}/COPYING*
 
 
 %changelog
+* Wed Nov 25 2015 Alexey Torkhov <atorkhov@gmail.com> 6.3-1%{?dist}
+-  Update to 6.3.
+
 * Fri Nov 20 2015 Alexey Torkhov <atorkhov@gmail.com> 6.2.1-2
 -  Add doc subpackage and disable debuginfo.
 
